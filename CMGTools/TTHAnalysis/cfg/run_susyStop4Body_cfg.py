@@ -28,12 +28,10 @@ ttHLepSkim.maxLeptons = 999
 # Lepton Preselection
 #electron
 #lepAna.loose_electron_id = "MVA_ID_NonTrig_Spring16_VLooseIdEmu"
-lepAna.loose_electron_id = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVeto_Veto" # sync with HEPHY
+lepAna.loose_electron_id = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVeto_Veto"
 lepAna.loose_electron_eta = 2.4
-#lepAna.inclusive_electron_pt = 5
-lepAna.inclusive_electron_pt = 3 # sync with HEPHY
-#lepAna.loose_electron_pt  = 5
-lepAna.loose_electron_pt = 3 # sync with HEPHY
+lepAna.inclusive_electron_pt = 3
+lepAna.loose_electron_pt = 3
 lepAna.inclusive_electron_id  = ""
 #muon
 lepAna.inclusive_muon_id  = ""
@@ -41,20 +39,18 @@ lepAna.inclusive_muon_pt  = 3.5
 lepAna.loose_muon_pt      = 3.5
 lepAna.loose_muon_eta     = 2.4
 
-#lepAna.loose_electron_dxy     = 0.02
-lepAna.loose_electron_dxy     = 0.1 # sync with HEPHY
+lepAna.loose_electron_dxy     = 0.1
 lepAna.loose_electron_dz      = 0.2
-#lepAna.loose_muon_dxy         = 0.02
-lepAna.loose_muon_dxy         = 0.1 # sync with HEPHY
+lepAna.loose_muon_dxy         = 0.1
 lepAna.loose_muon_dz          = 0.2
 
-lepAna.loose_electron_relIso     = 0.0 # sync with HEPHY
-lepAna.loose_muon_relIso         = 0.0 # sync with HEPHY
-lepAna.inclusive_electron_relIso = 0.0 # sync with HEPHY
-lepAna.inclusive_muon_relIso     = 0.0 # sync with HEPHY
+lepAna.loose_electron_relIso     = 0.0
+lepAna.loose_muon_relIso         = 0.0
+lepAna.inclusive_electron_relIso = 0.0
+lepAna.inclusive_muon_relIso     = 0.0
 
-lepAna.loose_electron_lostHits = 3.0 # sync with HEPHY
-lepAna.inclusive_electron_lostHits = 3.0 # sync with HEPHY
+lepAna.loose_electron_lostHits     = 3.0
+lepAna.inclusive_electron_lostHits = 3.0
 
 lepAna.match_inclusiveLeptons = True
 
@@ -96,10 +92,10 @@ if not removeJecUncertainty:
     #susyCoreSequence.insert(susyCoreSequence.index(metAna)+1, metAnaScaleUp)
 
 #myMCGlobalTag   = "Spring16_25nsV8_MC"
-myMCGlobalTag = "Spring16_25nsV6_MC" # sync with HEPHY
+myMCGlobalTag = "Spring16_25nsV6_MC"
 #myDataGlobalTag = "Spring16_25nsV8BCD_DATA Spring16_25nsV8E_DATA Spring16_25nsV8F_DATA Spring16_25nsV8_DATA"
-#myDataRuns      = [276811, 277420, 278802]
-myDataGlobalTag = "Spring16_25nsV6_DATA" # sync with HEPHY
+myDataRuns      = [276811, 277420, 278802]
+myDataGlobalTag = "Spring16_25nsV6_DATA"
 
 jetAna.jetPt = 20.
 if not removeJecUncertainty:
@@ -112,13 +108,10 @@ if not removeJecUncertainty:
     jetAnaScaleDown.jetEta = 4.7
 
 # Jet-lepton cleaning
-#jetAna.minLepPt = 5
-jetAna.minLepPt = -1 # sync with HEPHY
+jetAna.minLepPt = -1
 if not removeJecUncertainty:
-    #jetAnaScaleUp.minLepPt   = 5
-    #jetAnaScaleDown.minLepPt = 5
-    jetAnaScaleUp.minLepPt   = -1 # sync with HEPHY
-    jetAnaScaleDown.minLepPt = -1 # sync with HEPHY
+    jetAnaScaleUp.minLepPt   = -1
+    jetAnaScaleDown.minLepPt = -1
 
 jetAna.copyJetsByValue = True # do not remove this
 metAna.copyMETsByValue = True # do not remove this
@@ -128,22 +121,13 @@ if not removeJecUncertainty:
     jetAnaScaleUp.copyJetsByValue   = True # do not remove this
     metAnaScaleUp.copyMETsByValue   = True # do not remove this
 
-#jetAna.cleanJetsFromLeptons = False
-jetAna.cleanSelectedLeptons = True # sync with HEPHY
-#jetAna.storeLowPtJets       = True # sync with HEPHY
-#jetAna.jetEtaCentral        = jetAna.jetEta
-jetAna.jetEtaCentral        = 2.4 # sync with HEPHY
+jetAna.cleanSelectedLeptons = True
+jetAna.jetEtaCentral        = 2.4
 if not removeJecUncertainty:
-    #jetAnaScaleDown.cleanJetsFromLeptons = False
-    jetAnaScaleDown.cleanSelectedLeptons = True # sync with HEPHY
-    #jetAnaScaleDown.storeLowPtJets       = True # sync with HEPHY
-    #jetAnaScaleDown.jetEtaCentral        = jetAnaScaleDown.jetEta
-    jetAnaScaleDown.jetEtaCentral        = 2.4 # sync with HEPHY
-    #jetAnaScaleUp.cleanJetsFromLeptons   = False
-    jetAnaScaleUp.cleanSelectedLeptons   = True # sync with HEPHY
-    #jetAnaScaleUp.storeLowPtJets         = True # sync with HEPHY
-    #jetAnaScaleUp.jetEtaCentral          = jetAnaScaleUp.jetEta
-    jetAnaScaleUp.jetEtaCentral          = 2.4 # sync with HEPHY
+    jetAnaScaleDown.cleanSelectedLeptons = True
+    jetAnaScaleDown.jetEtaCentral        = 2.4
+    jetAnaScaleUp.cleanSelectedLeptons   = True
+    jetAnaScaleUp.jetEtaCentral          = 2.4
 
 
 # Switch on slow QGL
@@ -164,19 +148,14 @@ if not removeJecUncertainty:
     jetAnaScaleDown.smearJets = True
 
 if not skipT1METCorr:
-    #jetAna.calculateType1METCorrection = True
-    jetAna.calculateType1METCorrection = False # sync with HEPHY
-    #metAna.recalibrate                 = "type1"
-    metAna.recalibrate                 = True # sync with HEPHY
+    jetAna.calculateType1METCorrection = False
+    #metAna.recalibrate                 = 'type1'
+    metAna.recalibrate                 = True
     if not removeJecUncertainty:
-        #jetAnaScaleUp.calculateType1METCorrection   = True
-        jetAnaScaleUp.calculateType1METCorrection   = False # sync with HEPHY
-        #metAnaScaleUp.recalibrate                   = "type1"
-        metAnaScaleUp.recalibrate                   = True # sync with HEPHY
-        #jetAnaScaleDown.calculateType1METCorrection = True
-        jetAnaScaleDown.calculateType1METCorrection = False # sync with HEPHY
-        #metAnaScaleDown.recalibrate                 = "type1"
-        metAnaScaleDown.recalibrate                 = True # sync with HEPHY
+        jetAnaScaleUp.calculateType1METCorrection   = False
+        metAnaScaleUp.recalibrate                   = True
+        jetAnaScaleDown.calculateType1METCorrection = False
+        metAnaScaleDown.recalibrate                 = True
 
 if removeJetReCalibration:
     jetAna.recalibrateJets = False
@@ -194,14 +173,14 @@ if runSMS:
 # SET UP GLOBAL TAGS
 jetAna.mcGT        = myMCGlobalTag
 jetAna.dataGT      = myDataGlobalTag
-if len(myDataGlobalTag.split(" ")) > 1: # sync with HEPHY
+if len(myDataGlobalTag.split(" ")) > 1:
     jetAna.runsDataJEC = myDataRuns
 if not removeJecUncertainty:
     jetAnaScaleDown.mcGT        = myMCGlobalTag
     jetAnaScaleDown.dataGT      = myDataGlobalTag
     jetAnaScaleUp.mcGT          = myMCGlobalTag
     jetAnaScaleUp.dataGT        = myDataGlobalTag
-    if len(myDataGlobalTag.split(" ")) > 1: # sync with HEPHY
+    if len(myDataGlobalTag.split(" ")) > 1:
         jetAnaScaleDown.runsDataJEC = myDataRuns
         jetAnaScaleUp.runsDataJEC   = myDataRuns
 
@@ -209,7 +188,7 @@ if not removeJecUncertainty:
 
 # Switch off slow photon MC matching
 #photonAna.do_mc_match = False
-photonAna.do_mc_match = True # sync with HEPHY
+photonAna.do_mc_match = True
 
 # Loose Tau configuration
 tauAna.loose_ptMin = 20
@@ -223,8 +202,6 @@ if not removeJecUncertainty:
 
 isoTrackAna.setOff = False
 genAna.allGenTaus = True
-#genAna.makePackedGenParticles=False # sync with HEPHY
-#isoTrackAna.makeAllTracks=False # sync with HEPHY
 
 ## Event Analyzer for susy single-lepton (at the moment, it's the TTH one)
 from CMGTools.TTHAnalysis.analyzers.ttHLepEventAnalyzer import ttHLepEventAnalyzer
@@ -248,12 +225,12 @@ ttHEventAna = cfg.Analyzer(
 #    )
 
 ## Insert the FatJet, SV, HeavyFlavour analyzers in the sequence
-#susyCoreSequence.insert(susyCoreSequence.index(ttHCoreEventAna), # sync with HEPHY
+#susyCoreSequence.insert(susyCoreSequence.index(ttHCoreEventAna),
 #                        ttHFatJetAna)
-susyCoreSequence.insert(susyCoreSequence.index(ttHCoreEventAna), # sync with HEPHY
+susyCoreSequence.insert(susyCoreSequence.index(ttHCoreEventAna),
                         ttHSVAna)
 #susyCoreSequence.insert(susyCoreSequence.index(ttHCoreEventAna),
-#                        ttHHeavyFlavourHadronAna) # not in previous ------------------------------
+#                        ttHHeavyFlavourHadronAna)
 ## Insert TrackAna in the sequence:
 #susyCoreSequence.insert(susyCoreSequence.index(metAna)+1,
 #                        genTrackAna)
@@ -284,20 +261,19 @@ susyCoreSequence.insert(susyCoreSequence.index(ttHCoreEventAna), # sync with HEP
 #susyCoreSequence.insert(susyCoreSequence.index(ttHFatJetAna)+1, ttHDecluster)
 
 
-## Single lepton + ST skim # lara comment out
+## Single lepton + ST skim
 #from CMGTools.TTHAnalysis.analyzers.ttHSTSkimmer import ttHSTSkimmer
 #ttHSTSkimmer = cfg.Analyzer(
 #    ttHSTSkimmer, name='ttHSTSkimmer',
 #    minST = 200,
 #    )
 
-#add LHE Analyzer # previous ------------------------------
+#add LHE Analyzer
 from PhysicsTools.Heppy.analyzers.gen.LHEAnalyzer import LHEAnalyzer
 LHEAna = LHEAnalyzer.defaultConfig
 susyCoreSequence.insert(susyCoreSequence.index(ttHCoreEventAna),
                             LHEAna)
 
-# lara comment out
 #from CMGTools.TTHAnalysis.analyzers.ttHReclusterJetsAnalyzer import ttHReclusterJetsAnalyzer
 #ttHReclusterJets = cfg.Analyzer(
 #    ttHReclusterJetsAnalyzer, name="ttHReclusterJetsAnalyzer",
@@ -308,7 +284,6 @@ susyCoreSequence.insert(susyCoreSequence.index(ttHCoreEventAna),
 # Tree Producer
 from CMGTools.TTHAnalysis.analyzers.treeProducerStop4Body import *
 
-# Multilepton
 #ttHLepSkim.allowLepTauComb = True
 #susyCoreSequence.insert(susyCoreSequence.index(ttHCoreEventAna),
 #                        susyLeptonMatchAna)
@@ -366,11 +341,11 @@ treeProducer = cfg.Analyzer(
 if not runSMS:
     susyScanAna.doLHE = False # until a proper fix is put in the analyzer
 else:
-    #susyScanAna.useLumiInfo = True # sync with HEPHY
+    #susyScanAna.useLumiInfo = True
     susyScanAna.doLHE = True
-    susyScanAna.SUSYmodel = None # sync with HEPHY
+    susyScanAna.SUSYmodel = None
 
-jsonAna.useLumiBlocks = True # sync with HEPHY
+jsonAna.useLumiBlocks = True
 
 
 # HBHE new filter
@@ -463,14 +438,10 @@ triggerFlagsAna.triggerBits = {
     'PFMETNoMu110_PFMHTNoMu110_IDTight': ['HLT_PFMETNoMu110_PFMHTNoMu110_IDTight_v*'],
     'PFMETNoMu120_PFMHTNoMu120_IDTight': ['HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_v*']
 }
-#triggerFlagsAna.unrollbits = True
-triggerFlagsAna.unrollbits = False # sync with HEPHY
-#triggerFlagsAna.saveIsUnprescaled = True
-triggerFlagsAna.saveIsUnprescaled = False # sync with HEPHY
-#triggerFlagsAna.checkL1prescale = True
-triggerFlagsAna.checkL1prescale = False # sync with HEPHY
+triggerFlagsAna.unrollbits = False
+triggerFlagsAna.saveIsUnprescaled = False
+triggerFlagsAna.checkL1prescale = False
 
-# Multilepton
 if runSMS:
     susyCoreSequence.remove(triggerFlagsAna)
     susyCoreSequence.remove(triggerAna)
@@ -484,7 +455,7 @@ from CMGTools.RootTools.samples.samples_13TeV_DATA2016 import *
 
 selectedComponents = [WJetsToLNu_LO]
 
-if runSMS:
+if runSMS: # For running on signal
     selectedComponents=[WJetsToLNu_LO]
 
 if runData and not isTest: # For running on data
@@ -493,10 +464,7 @@ if runData and not isTest: # For running on data
 #-------- SEQUENCE
 
 sequence = cfg.Sequence(susyCoreSequence+[
-    #ttHJetTauAna, # Multilepton
     ttHEventAna,
-    #ttHSTSkimmer, # previous ------------------------------
-    #ttHReclusterJets, # previous ------------------------------
     treeProducer,
     ])
 preprocessor = None
@@ -516,14 +484,13 @@ elif test==2:
     for comp in selectedComponents:
         comp.files = comp.files[:1]
         comp.splitFactor = 1
-    #comp.fineSplitFactor = 1
+        #comp.fineSplitFactor = 1
 
 ## Auto-AAA
 from CMGTools.RootTools.samples.autoAAAconfig import *
 if not getHeppyOption("isCrab"):
     autoAAA(selectedComponents)
 
-## output histogram
 outputService=[]
 from PhysicsTools.HeppyCore.framework.services.tfile import TFileService
 output_service = cfg.Service(

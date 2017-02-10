@@ -150,11 +150,7 @@ susyStop4Body_collections.update({
             "selectedLeptons"    : NTupleCollection("LepGood",    leptonTypeSusyExtraLight,     8,              help="Leptons after the preselection"),
             "otherLeptons"       : NTupleCollection("LepOther",   leptonTypeSusyExtraLight,     8,              help="Leptons after the preselection"),
             ## ---------------------------------------------
-            #"Tracks"             : NTupleCollection("Tracks",     trackTypeSusy,             2000,              help="all Tracks from PackedPFCandidates (pt>1) , sorted by pt"),
-            ## ---------------------------------------------
             "cleanJetsAll"       : NTupleCollection("Jet",        jetTypeSusy,                 30,              help="Cental jets after full selection and cleaning, sorted by pt"),
-            #"fatJets"            : NTupleCollection("FatJet",     fatJetType,                  15,              help="AK8 jets, sorted by pt"), # sync with HEPHY
-            #"reclusteredFatJets" : NTupleCollection("RCFatJet",   fourVectorType,              20,              help="FatJets1.2 reclusterd from ak4 cleanJetsAll pT > 30, eta <5 "),
             ## ---------------------------------------------
             "ivf"                : NTupleCollection("SV",         svType,                      20,              help="SVs from IVF"),
             ## ---------------------------------------------
