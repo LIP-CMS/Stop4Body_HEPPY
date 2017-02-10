@@ -150,7 +150,7 @@ susyStop4Body_collections.update({
             "selectedLeptons"    : NTupleCollection("LepGood",    leptonTypeSusyExtraLight,     8,              help="Leptons after the preselection"),
             "otherLeptons"       : NTupleCollection("LepOther",   leptonTypeSusyExtraLight,     8,              help="Leptons after the preselection"),
             ## ---------------------------------------------
-            "Tracks"             : NTupleCollection("Tracks",     trackTypeSusy,             2000,              help="all Tracks from PackedPFCandidates (pt>1) , sorted by pt"),
+            #"Tracks"             : NTupleCollection("Tracks",     trackTypeSusy,             2000,              help="all Tracks from PackedPFCandidates (pt>1) , sorted by pt"),
             ## ---------------------------------------------
             "cleanJetsAll"       : NTupleCollection("Jet",        jetTypeSusy,                 30,              help="Cental jets after full selection and cleaning, sorted by pt"),
             #"fatJets"            : NTupleCollection("FatJet",     fatJetType,                  15,              help="AK8 jets, sorted by pt"), # sync with HEPHY
@@ -160,6 +160,6 @@ susyStop4Body_collections.update({
             ## ---------------------------------------------
             "selectedIsoTrack"   : NTupleCollection("isoTrack",   isoTrackType,                50,              help="isoTrack, sorted by pt"),
             ## ---------------------------------------------
-            "LHEWeights"         : NTupleCollection("LHEweight",  weightsInfoType,           1000, mcOnly=True, help="LHE weight info"),
+            "LHE_weights"        : NTupleCollection("LHEweight",  weightsInfoType,           1000, mcOnly=True, help="LHE weight info"),
 })
 

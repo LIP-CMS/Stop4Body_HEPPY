@@ -27,10 +27,13 @@ ttHLepSkim.maxLeptons = 999
 #-----------------------------------------------------------------------
 # Lepton Preselection
 #electron
-lepAna.loose_electron_id = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVeto_Veto"
+#lepAna.loose_electron_id = "MVA_ID_NonTrig_Spring16_VLooseIdEmu"
+lepAna.loose_electron_id = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVeto_Veto" # sync with HEPHY
 lepAna.loose_electron_eta = 2.4
-lepAna.inclusive_electron_pt  = 5
-lepAna.loose_electron_pt  = 5
+#lepAna.inclusive_electron_pt = 5
+lepAna.inclusive_electron_pt = 3 # sync with HEPHY
+#lepAna.loose_electron_pt  = 5
+lepAna.loose_electron_pt = 3 # sync with HEPHY
 lepAna.inclusive_electron_id  = ""
 #muon
 lepAna.inclusive_muon_id  = ""
@@ -38,10 +41,20 @@ lepAna.inclusive_muon_pt  = 3.5
 lepAna.loose_muon_pt      = 3.5
 lepAna.loose_muon_eta     = 2.4
 
-lepAna.loose_electron_dxy     = 0.02
+#lepAna.loose_electron_dxy     = 0.02
+lepAna.loose_electron_dxy     = 0.1 # sync with HEPHY
 lepAna.loose_electron_dz      = 0.2
-lepAna.loose_muon_dxy         = 0.02
+#lepAna.loose_muon_dxy         = 0.02
+lepAna.loose_muon_dxy         = 0.1 # sync with HEPHY
 lepAna.loose_muon_dz          = 0.2
+
+lepAna.loose_electron_relIso     = 0.0 # sync with HEPHY
+lepAna.loose_muon_relIso         = 0.0 # sync with HEPHY
+lepAna.inclusive_electron_relIso = 0.0 # sync with HEPHY
+lepAna.inclusive_muon_relIso     = 0.0 # sync with HEPHY
+
+lepAna.loose_electron_lostHits = 3.0 # sync with HEPHY
+lepAna.inclusive_electron_lostHits = 3.0 # sync with HEPHY
 
 lepAna.match_inclusiveLeptons = True
 
@@ -82,16 +95,16 @@ if not removeJecUncertainty:
     #susyCoreSequence.insert(susyCoreSequence.index(metAna)+1, metAnaScaleDown)
     #susyCoreSequence.insert(susyCoreSequence.index(metAna)+1, metAnaScaleUp)
 
-myMCGlobalTag   = "Spring16_25nsV8_MC"
-myDataGlobalTag = "Spring16_25nsV8BCD_DATA Spring16_25nsV8E_DATA Spring16_25nsV8F_DATA Spring16_25nsV8_DATA"
-myDataRuns      = [276811, 277420, 278802]
+#myMCGlobalTag   = "Spring16_25nsV8_MC"
+myMCGlobalTag = "Spring16_25nsV6_MC" # sync with HEPHY
+#myDataGlobalTag = "Spring16_25nsV8BCD_DATA Spring16_25nsV8E_DATA Spring16_25nsV8F_DATA Spring16_25nsV8_DATA"
+#myDataRuns      = [276811, 277420, 278802]
+myDataGlobalTag = "Spring16_25nsV6_DATA" # sync with HEPHY
 
 jetAna.jetPt = 20.
 if not removeJecUncertainty:
     jetAnaScaleUp.jetPt   = 20
     jetAnaScaleDown.jetPt = 20
-
-#metAna.recalibrate = True
 
 jetAna.jetEta = 4.7
 if not removeJecUncertainty:
@@ -99,10 +112,13 @@ if not removeJecUncertainty:
     jetAnaScaleDown.jetEta = 4.7
 
 # Jet-lepton cleaning
-jetAna.minLepPt = 5
+#jetAna.minLepPt = 5
+jetAna.minLepPt = -1 # sync with HEPHY
 if not removeJecUncertainty:
-    jetAnaScaleUp.minLepPt   = 5
-    jetAnaScaleDown.minLepPt = 5
+    #jetAnaScaleUp.minLepPt   = 5
+    #jetAnaScaleDown.minLepPt = 5
+    jetAnaScaleUp.minLepPt   = -1 # sync with HEPHY
+    jetAnaScaleDown.minLepPt = -1 # sync with HEPHY
 
 jetAna.copyJetsByValue = True # do not remove this
 metAna.copyMETsByValue = True # do not remove this
@@ -112,19 +128,22 @@ if not removeJecUncertainty:
     jetAnaScaleUp.copyJetsByValue   = True # do not remove this
     metAnaScaleUp.copyMETsByValue   = True # do not remove this
 
-#jetAna.cleanJetsFromLeptons = False # sync with HEPHY
-jetAna.cleanSelectedLeptons = True
+#jetAna.cleanJetsFromLeptons = False
+jetAna.cleanSelectedLeptons = True # sync with HEPHY
 #jetAna.storeLowPtJets       = True # sync with HEPHY
-jetAna.jetEtaCentral        = jetAna.jetEta
+#jetAna.jetEtaCentral        = jetAna.jetEta
+jetAna.jetEtaCentral        = 2.4 # sync with HEPHY
 if not removeJecUncertainty:
-    #jetAnaScaleDown.cleanJetsFromLeptons = False # sync with HEPHY
-    jetAnaScaleDown.cleanSelectedLeptons = True
+    #jetAnaScaleDown.cleanJetsFromLeptons = False
+    jetAnaScaleDown.cleanSelectedLeptons = True # sync with HEPHY
     #jetAnaScaleDown.storeLowPtJets       = True # sync with HEPHY
-    jetAnaScaleDown.jetEtaCentral        = jetAnaScaleDown.jetEta
-    #jetAnaScaleUp.cleanJetsFromLeptons   = False # sync with HEPHY
-    jetAnaScaleUp.cleanSelectedLeptons   = True
+    #jetAnaScaleDown.jetEtaCentral        = jetAnaScaleDown.jetEta
+    jetAnaScaleDown.jetEtaCentral        = 2.4 # sync with HEPHY
+    #jetAnaScaleUp.cleanJetsFromLeptons   = False
+    jetAnaScaleUp.cleanSelectedLeptons   = True # sync with HEPHY
     #jetAnaScaleUp.storeLowPtJets         = True # sync with HEPHY
-    jetAnaScaleUp.jetEtaCentral          = jetAnaScaleUp.jetEta
+    #jetAnaScaleUp.jetEtaCentral          = jetAnaScaleUp.jetEta
+    jetAnaScaleUp.jetEtaCentral          = 2.4 # sync with HEPHY
 
 
 # Switch on slow QGL
@@ -143,17 +162,21 @@ jetAna.smearJets = True
 if not removeJecUncertainty:
     jetAnaScaleUp.smearJets   = True
     jetAnaScaleDown.smearJets = True
-#jetAna.recalibrateJets = True #should be true in susycore, already # previous ------------------------------
-#metAna.recalibrate = False #should be false in susycore, already  # previous ------------------------------
 
 if not skipT1METCorr:
-    jetAna.calculateType1METCorrection = True
-    metAna.recalibrate                 = "type1"
+    #jetAna.calculateType1METCorrection = True
+    jetAna.calculateType1METCorrection = False # sync with HEPHY
+    #metAna.recalibrate                 = "type1"
+    metAna.recalibrate                 = True # sync with HEPHY
     if not removeJecUncertainty:
-        jetAnaScaleUp.calculateType1METCorrection   = True
-        metAnaScaleUp.recalibrate                   = "type1"
-        jetAnaScaleDown.calculateType1METCorrection = True
-        metAnaScaleDown.recalibrate                 = "type1"
+        #jetAnaScaleUp.calculateType1METCorrection   = True
+        jetAnaScaleUp.calculateType1METCorrection   = False # sync with HEPHY
+        #metAnaScaleUp.recalibrate                   = "type1"
+        metAnaScaleUp.recalibrate                   = True # sync with HEPHY
+        #jetAnaScaleDown.calculateType1METCorrection = True
+        jetAnaScaleDown.calculateType1METCorrection = False # sync with HEPHY
+        #metAnaScaleDown.recalibrate                 = "type1"
+        metAnaScaleDown.recalibrate                 = True # sync with HEPHY
 
 if removeJetReCalibration:
     jetAna.recalibrateJets = False
@@ -185,7 +208,8 @@ if not removeJecUncertainty:
 #-----------------------------------------------------------------------
 
 # Switch off slow photon MC matching
-photonAna.do_mc_match = False
+#photonAna.do_mc_match = False
+photonAna.do_mc_match = True # sync with HEPHY
 
 # Loose Tau configuration
 tauAna.loose_ptMin = 20
@@ -226,8 +250,8 @@ ttHEventAna = cfg.Analyzer(
 ## Insert the FatJet, SV, HeavyFlavour analyzers in the sequence
 #susyCoreSequence.insert(susyCoreSequence.index(ttHCoreEventAna), # sync with HEPHY
 #                        ttHFatJetAna)
-#susyCoreSequence.insert(susyCoreSequence.index(ttHCoreEventAna), # sync with HEPHY
-#                        ttHSVAna)
+susyCoreSequence.insert(susyCoreSequence.index(ttHCoreEventAna), # sync with HEPHY
+                        ttHSVAna)
 #susyCoreSequence.insert(susyCoreSequence.index(ttHCoreEventAna),
 #                        ttHHeavyFlavourHadronAna) # not in previous ------------------------------
 ## Insert TrackAna in the sequence:
@@ -347,24 +371,6 @@ else:
     susyScanAna.SUSYmodel = None # sync with HEPHY
 
 jsonAna.useLumiBlocks = True # sync with HEPHY
-lepAna.inclusive_electron_lostHits = 3.0 # sync with HEPHY
-lepAna.inclusive_electron_pt = 3 # sync with HEPHY
-lepAna.inclusive_electron_relIso = 0.0 # sync with HEPHY
-lepAna.inclusive_muon_relIso = 0.0 # sync with HEPHY
-lepAna.loose_electron_dxy = 0.1 # sync with HEPHY
-lepAna.loose_electron_id = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVeto_Veto" # sync with HEPHY
-lepAna.loose_electron_lostHits = 3.0 # sync with HEPHY
-lepAna.loose_electron_pt = 3 # sync with HEPHY
-lepAna.loose_electron_relIso = 0.0 # sync with HEPHY
-lepAna.loose_muon_dxy = 0.1 # sync with HEPHY
-lepAna.loose_muon_relIso = 0.0 # sync with HEPHY
-photonAna.do_mc_match = True # sync with HEPHY
-jetAna.calculateType1METCorrection = False
-myDataGlobalTag = "Spring16_25nsV6_DATA"
-myMCGlobalTag = "Spring16_25nsV6_MC"
-jetAna.jetEtaCentral = 2.4
-jetAna.minLepPt = -1
-metAna.recalibrate = True
 
 
 # HBHE new filter
