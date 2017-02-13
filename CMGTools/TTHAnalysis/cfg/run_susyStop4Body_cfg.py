@@ -28,21 +28,21 @@ ttHLepSkim.maxLeptons = 999
 # Lepton Preselection
 #electron
 #lepAna.loose_electron_id = "MVA_ID_NonTrig_Spring16_VLooseIdEmu"
-lepAna.loose_electron_id = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVeto_Veto"
-lepAna.loose_electron_eta = 2.4
-lepAna.inclusive_electron_pt = 3
-lepAna.loose_electron_pt = 3
+lepAna.loose_electron_id      = "POG_Cuts_ID_SPRING15_25ns_v1_ConvVeto_Veto"
+lepAna.loose_electron_eta     = 2.5
+lepAna.inclusive_electron_pt  = 3
+lepAna.loose_electron_pt      = 3
 lepAna.inclusive_electron_id  = ""
 #muon
 lepAna.inclusive_muon_id  = ""
-lepAna.inclusive_muon_pt  = 3.5
-lepAna.loose_muon_pt      = 3.5
+lepAna.inclusive_muon_pt  = 3
+lepAna.loose_muon_pt      = 3
 lepAna.loose_muon_eta     = 2.4
 
 lepAna.loose_electron_dxy     = 0.1
-lepAna.loose_electron_dz      = 0.2
+lepAna.loose_electron_dz      = 0.5
 lepAna.loose_muon_dxy         = 0.1
-lepAna.loose_muon_dz          = 0.2
+lepAna.loose_muon_dz          = 0.5
 
 lepAna.loose_electron_relIso     = 0.0
 lepAna.loose_muon_relIso         = 0.0
@@ -91,11 +91,10 @@ if not removeJecUncertainty:
     #susyCoreSequence.insert(susyCoreSequence.index(metAna)+1, metAnaScaleDown)
     #susyCoreSequence.insert(susyCoreSequence.index(metAna)+1, metAnaScaleUp)
 
-#myMCGlobalTag   = "Spring16_25nsV8_MC"
-myMCGlobalTag = "Spring16_25nsV6_MC"
+myMCGlobalTag = "Summer16_23Sep2016V3_MC"
 #myDataGlobalTag = "Spring16_25nsV8BCD_DATA Spring16_25nsV8E_DATA Spring16_25nsV8F_DATA Spring16_25nsV8_DATA"
-myDataRuns      = [276811, 277420, 278802]
-myDataGlobalTag = "Spring16_25nsV6_DATA"
+#myDataRuns      = [276811, 277420, 278802]
+myDataGlobalTag = [(1, 'Summer16_23Sep2016BCDV3_DATA'), (276831, 'Summer16_23Sep2016EFV3_DATA'), (278802, 'Summer16_23Sep2016GV3_DATA'), (280919, 'Summer16_23Sep2016HV3_DATA')]
 
 jetAna.jetPt = 20.
 if not removeJecUncertainty:
@@ -129,6 +128,11 @@ if not removeJecUncertainty:
     jetAnaScaleUp.cleanSelectedLeptons   = True
     jetAnaScaleUp.jetEtaCentral          = 2.4
 
+jetAna.applyL2L3Residual = "Data"
+if not removeJecUncertainty:
+    jetAnaScaleDown.applyL2L3Residual = "Data"
+    jetAnaScaleUp.applyL2L3Residual   = "Data"
+
 
 # Switch on slow QGL
 jetAna.doQG = True
@@ -148,13 +152,13 @@ if not removeJecUncertainty:
     jetAnaScaleDown.smearJets = True
 
 if not skipT1METCorr:
-    jetAna.calculateType1METCorrection = False
+    jetAna.calculateType1METCorrection = True
     #metAna.recalibrate                 = 'type1'
     metAna.recalibrate                 = True
     if not removeJecUncertainty:
-        jetAnaScaleUp.calculateType1METCorrection   = False
+        jetAnaScaleUp.calculateType1METCorrection   = True
         metAnaScaleUp.recalibrate                   = True
-        jetAnaScaleDown.calculateType1METCorrection = False
+        jetAnaScaleDown.calculateType1METCorrection = True
         metAnaScaleDown.recalibrate                 = True
 
 if removeJetReCalibration:
@@ -173,16 +177,14 @@ if runSMS:
 # SET UP GLOBAL TAGS
 jetAna.mcGT        = myMCGlobalTag
 jetAna.dataGT      = myDataGlobalTag
-if len(myDataGlobalTag.split(" ")) > 1:
-    jetAna.runsDataJEC = myDataRuns
+#jetAna.runsDataJEC = myDataRuns
 if not removeJecUncertainty:
     jetAnaScaleDown.mcGT        = myMCGlobalTag
     jetAnaScaleDown.dataGT      = myDataGlobalTag
     jetAnaScaleUp.mcGT          = myMCGlobalTag
     jetAnaScaleUp.dataGT        = myDataGlobalTag
-    if len(myDataGlobalTag.split(" ")) > 1:
-        jetAnaScaleDown.runsDataJEC = myDataRuns
-        jetAnaScaleUp.runsDataJEC   = myDataRuns
+    #jetAnaScaleDown.runsDataJEC = myDataRuns
+    #jetAnaScaleUp.runsDataJEC   = myDataRuns
 
 #-----------------------------------------------------------------------
 
@@ -191,10 +193,10 @@ if not removeJecUncertainty:
 photonAna.do_mc_match = True
 
 # Loose Tau configuration
-tauAna.loose_ptMin = 20
+tauAna.loose_ptMin = 18
 tauAna.loose_etaMax = 2.3
 tauAna.loose_decayModeID = "decayModeFindingNewDMs"
-tauAna.loose_tauID = "decayModeFindingNewDMs"
+tauAna.loose_tauID = "byLooseCombinedIsolationDeltaBetaCorr3Hits"
 jetAna.cleanJetsFromTaus = True
 if not removeJecUncertainty:
     jetAnaScaleUp.cleanJetsFromTaus = True
@@ -227,8 +229,8 @@ ttHEventAna = cfg.Analyzer(
 ## Insert the FatJet, SV, HeavyFlavour analyzers in the sequence
 #susyCoreSequence.insert(susyCoreSequence.index(ttHCoreEventAna),
 #                        ttHFatJetAna)
-susyCoreSequence.insert(susyCoreSequence.index(ttHCoreEventAna),
-                        ttHSVAna)
+#susyCoreSequence.insert(susyCoreSequence.index(ttHCoreEventAna),
+#                        ttHSVAna)
 #susyCoreSequence.insert(susyCoreSequence.index(ttHCoreEventAna),
 #                        ttHHeavyFlavourHadronAna)
 ## Insert TrackAna in the sequence:
@@ -326,6 +328,9 @@ if lepAna.doIsolationScan:
 #            "discardedJets_jecDown" : NTupleCollection("DiscJet_jecDown", jetTypeSusySuperLight if analysis=='susy' else jetTypeSusyExtraLight, 15, help="Jets discarted in the jet-lepton cleaning (JEC -1sigma)"),
 #            })
 
+susyCounter.doLHE = False
+susyCoreSequence.insert(susyCoreSequence.index(skimAnalyzer),susyCounter)
+
 ## Tree Producer
 treeProducer = cfg.Analyzer(
      AutoFillTreeProducer, name = 'treeProducerStop4Body',
@@ -340,26 +345,26 @@ treeProducer = cfg.Analyzer(
 
 if not runSMS:
     susyScanAna.doLHE = False # until a proper fix is put in the analyzer
+    susyScanAna.useLumiInfo = False
 else:
     #susyScanAna.useLumiInfo = True
     susyScanAna.doLHE = True
-    susyScanAna.SUSYmodel = None
 
 jsonAna.useLumiBlocks = True
 
 
 # HBHE new filter
-from CMGTools.TTHAnalysis.analyzers.hbheAnalyzer import hbheAnalyzer
-hbheAna = cfg.Analyzer(
-    hbheAnalyzer, name="hbheAnalyzer", IgnoreTS4TS5ifJetInLowBVRegion=False
-    )
-if not runSMS:
-    susyCoreSequence.insert(susyCoreSequence.index(ttHCoreEventAna),hbheAna)
-    treeProducer.globalVariables.append(NTupleVariable("hbheFilterNew50ns", lambda ev: ev.hbheFilterNew50ns, int, help="new HBHE filter for 50 ns"))
-    treeProducer.globalVariables.append(NTupleVariable("hbheFilterNew25ns", lambda ev: ev.hbheFilterNew25ns, int, help="new HBHE filter for 25 ns"))
-    treeProducer.globalVariables.append(NTupleVariable("hbheFilterIso", lambda ev: ev.hbheFilterIso, int, help="HBHE iso-based noise filter"))
-    treeProducer.globalVariables.append(NTupleVariable("Flag_badChargedHadronFilter", lambda ev: ev.badChargedHadron, help="bad charged hadron filter decision"))
-    treeProducer.globalVariables.append(NTupleVariable("Flag_badMuonFilter", lambda ev: ev.badMuon, help="bad muon filter decision"))
+#from CMGTools.TTHAnalysis.analyzers.hbheAnalyzer import hbheAnalyzer
+#hbheAna = cfg.Analyzer(
+#    hbheAnalyzer, name="hbheAnalyzer", IgnoreTS4TS5ifJetInLowBVRegion=False
+#    )
+#if not runSMS:
+#    susyCoreSequence.insert(susyCoreSequence.index(ttHCoreEventAna),hbheAna)
+#    treeProducer.globalVariables.append(NTupleVariable("hbheFilterNew50ns", lambda ev: ev.hbheFilterNew50ns, int, help="new HBHE filter for 50 ns"))
+#    treeProducer.globalVariables.append(NTupleVariable("hbheFilterNew25ns", lambda ev: ev.hbheFilterNew25ns, int, help="new HBHE filter for 25 ns"))
+#    #treeProducer.globalVariables.append(NTupleVariable("hbheFilterIso", lambda ev: ev.hbheFilterIso, int, help="HBHE iso-based noise filter"))
+#    #treeProducer.globalVariables.append(NTupleVariable("Flag_badChargedHadronFilter", lambda ev: ev.badChargedHadron, help="bad charged hadron filter decision"))
+#    #treeProducer.globalVariables.append(NTupleVariable("Flag_badMuonFilter", lambda ev: ev.badMuon, help="bad muon filter decision"))
 
 #-------- SAMPLES AND TRIGGERS -----------
 
@@ -398,45 +403,45 @@ if not runSMS:
 #    #'METMu5' : triggers_MET120Mu5,
 #}
 triggerFlagsAna.triggerBits = {
-    'HT2000': ['HLT_HT2000_v*'],
-    'Ele25_eta2p1_WPTight_Gsf': ['HLT_Ele25_eta2p1_WPTight_Gsf_v*'],
-    'PFMET110_PFMHT110_IDTight': ['HLT_PFMET110_PFMHT110_IDTight_v*'],
-    'PFJet450': ['HLT_PFJet450_v*'],
-    'PFMETNoMu100_PFMHTNoMu100_IDTight': ['HLT_PFMETNoMu100_PFMHTNoMu100_IDTight_v*'],
-    'Ele25_WPTight_Gsf': ['HLT_Ele25_WPTight_Gsf_v*'],
-    'IsoMu27': ['HLT_IsoMu27_v*'],
-    'Mu3er_PFHT140_PFMET125': ['HLT_Mu3er_PFHT140_PFMET125_v*'],
-    'MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight': ['HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight_v*'],
-    'Ele32_eta2p1_WPTight_Gsf': ['HLT_Ele32_eta2p1_WPTight_Gsf_v*'],
-    'MonoCentralPFJet80_PFMETNoMu110_PFMHTNoMu110_IDTight': ['HLT_MonoCentralPFJet80_PFMETNoMu110_PFMHTNoMu110_IDTight_v*'],
-    'PFMETNoMu90_PFMHTNoMu90_IDTight': ['HLT_PFMETNoMu90_PFMHTNoMu90_IDTight_v*'],
-    'AK8PFJet450': ['HLT_AK8PFJet450_v*'],
-    'Ele22_eta2p1_WPLoose_Gsf': ['HLT_Ele22_eta2p1_WPLoose_Gsf_v*'],
-    'MonoCentralPFJet80_PFMETNoMu100_PFMHTNoMu100_IDTight': ['HLT_MonoCentralPFJet80_PFMETNoMu100_PFMHTNoMu100_IDTight_v*'],
-    'PFMET120_PFMHT120_IDTight': ['HLT_PFMET120_PFMHT120_IDTight_v*'],
-    'Mu50': ['HLT_Mu50_v*'],
-    'IsoMu22_eta2p1': ['HLT_IsoMu22_eta2p1_v*'],
-    'MonoCentralPFJet80_PFMETNoMu90_PFMHTNoMu90_IDTight': ['HLT_MonoCentralPFJet80_PFMETNoMu90_PFMHTNoMu90_IDTight_v*'],
-    'Ele24_eta2p1_WPLoose_Gsf': ['HLT_Ele24_eta2p1_WPLoose_Gsf_v*'],
-    'HT2500': ['HLT_HT2500_v*'],
-    'PFMET120_Mu5': ['HLT_PFMET120_Mu5_v*'],
-    'PFHT800': ['HLT_PFHT800_v*'],
-    'PFHT900': ['HLT_PFHT900_v*'],
-    'PFMET90_PFMHT90_IDTight': ['HLT_PFMET90_PFMHT90_IDTight_v*'],
-    'Ele27_WPTight_Gsf': ['HLT_Ele27_WPTight_Gsf_v*'],
-    'PFMET170_NoiseCleaned': ['HLT_PFMET170_NoiseCleaned_v*'],
-    'IsoTkMu22_eta2p1': ['HLT_IsoTkMu22_eta2p1_v*'],
-    'Ele27_eta2p1_WPLoose_Gsf_HT200': ['HLT_Ele27_eta2p1_WPLoose_Gsf_HT200_v*'],
-    'IsoTkMu24': ['HLT_IsoTkMu24_v*'],
-    'IsoMu22': ['HLT_IsoMu22_v*'],
-    'IsoMu24': ['HLT_IsoMu24_v*'],
-    'IsoTkMu22': ['HLT_IsoTkMu22_v*'],
-    'Ele25_eta2p1_WPLoose_Gsf': ['HLT_Ele25_eta2p1_WPLoose_Gsf_v*'],
-    'IsoTkMu27': ['HLT_IsoTkMu27_v*'],
-    'PFMET100_PFMHT100_IDTight': ['HLT_PFMET100_PFMHT100_IDTight_v*'],
-    'Ele27_eta2p1_WPTight_Gsf': ['HLT_Ele27_eta2p1_WPTight_Gsf_v*'],
-    'PFMETNoMu110_PFMHTNoMu110_IDTight': ['HLT_PFMETNoMu110_PFMHTNoMu110_IDTight_v*'],
-    'PFMETNoMu120_PFMHTNoMu120_IDTight': ['HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_v*']
+  'HT2000': ['HLT_HT2000_v*'],
+  'Ele25_eta2p1_WPTight_Gsf': ['HLT_Ele25_eta2p1_WPTight_Gsf_v*'],
+  'PFMET110_PFMHT110_IDTight': ['HLT_PFMET110_PFMHT110_IDTight_v*'],
+  'PFJet450': ['HLT_PFJet450_v*'],
+  'PFMETNoMu100_PFMHTNoMu100_IDTight': ['HLT_PFMETNoMu100_PFMHTNoMu100_IDTight_v*'],
+  'Ele25_WPTight_Gsf': ['HLT_Ele25_WPTight_Gsf_v*'],
+  'IsoMu27': ['HLT_IsoMu27_v*'],
+  'Mu3er_PFHT140_PFMET125': ['HLT_Mu3er_PFHT140_PFMET125_v*'],
+  'MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight': ['HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight_v*'],
+  'Ele32_eta2p1_WPTight_Gsf': ['HLT_Ele32_eta2p1_WPTight_Gsf_v*'],
+  'MonoCentralPFJet80_PFMETNoMu110_PFMHTNoMu110_IDTight': ['HLT_MonoCentralPFJet80_PFMETNoMu110_PFMHTNoMu110_IDTight_v*'],
+  'PFMETNoMu90_PFMHTNoMu90_IDTight': ['HLT_PFMETNoMu90_PFMHTNoMu90_IDTight_v*'],
+  'AK8PFJet450': ['HLT_AK8PFJet450_v*'],
+  'Ele22_eta2p1_WPLoose_Gsf': ['HLT_Ele22_eta2p1_WPLoose_Gsf_v*'],
+  'MonoCentralPFJet80_PFMETNoMu100_PFMHTNoMu100_IDTight': ['HLT_MonoCentralPFJet80_PFMETNoMu100_PFMHTNoMu100_IDTight_v*'],
+  'PFMET120_PFMHT120_IDTight': ['HLT_PFMET120_PFMHT120_IDTight_v*'],
+  'Mu50': ['HLT_Mu50_v*'],
+  'IsoMu22_eta2p1': ['HLT_IsoMu22_eta2p1_v*'],
+  'MonoCentralPFJet80_PFMETNoMu90_PFMHTNoMu90_IDTight': ['HLT_MonoCentralPFJet80_PFMETNoMu90_PFMHTNoMu90_IDTight_v*'],
+  'Ele24_eta2p1_WPLoose_Gsf': ['HLT_Ele24_eta2p1_WPLoose_Gsf_v*'],
+  'HT2500': ['HLT_HT2500_v*'],
+  'PFMET120_Mu5': ['HLT_PFMET120_Mu5_v*'],
+  'PFHT800': ['HLT_PFHT800_v*'],
+  'PFHT900': ['HLT_PFHT900_v*'],
+  'PFMET90_PFMHT90_IDTight': ['HLT_PFMET90_PFMHT90_IDTight_v*'],
+  'Ele27_WPTight_Gsf': ['HLT_Ele27_WPTight_Gsf_v*'],
+  'PFMET170_NoiseCleaned': ['HLT_PFMET170_NoiseCleaned_v*'],
+  'IsoTkMu22_eta2p1': ['HLT_IsoTkMu22_eta2p1_v*'],
+  'Ele27_eta2p1_WPLoose_Gsf_HT200': ['HLT_Ele27_eta2p1_WPLoose_Gsf_HT200_v*'],
+  'IsoTkMu24': ['HLT_IsoTkMu24_v*'],
+  'IsoMu22': ['HLT_IsoMu22_v*'],
+  'IsoMu24': ['HLT_IsoMu24_v*'],
+  'IsoTkMu22': ['HLT_IsoTkMu22_v*'],
+  'Ele25_eta2p1_WPLoose_Gsf': ['HLT_Ele25_eta2p1_WPLoose_Gsf_v*'],
+  'IsoTkMu27': ['HLT_IsoTkMu27_v*'],
+  'PFMET100_PFMHT100_IDTight': ['HLT_PFMET100_PFMHT100_IDTight_v*'],
+  'Ele27_eta2p1_WPTight_Gsf': ['HLT_Ele27_eta2p1_WPTight_Gsf_v*'],
+  'PFMETNoMu110_PFMHTNoMu110_IDTight': ['HLT_PFMETNoMu110_PFMHTNoMu110_IDTight_v*'],
+  'PFMETNoMu120_PFMHTNoMu120_IDTight': ['HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_v*']
 }
 triggerFlagsAna.unrollbits = False
 triggerFlagsAna.saveIsUnprescaled = False

@@ -127,8 +127,8 @@ susyStop4Body_globalVariables = susyCore_globalVariables + [
             NTupleVariable("mtw2", lambda ev: ev.mtw2, help="cos (phi)"),
 
             ##-------- MET filter information ------------------------------------------
-            NTupleVariable("Flag_HBHENoiseFilter_fix", lambda ev: getattr(ev, "ev.hbheFilterNew", 0), help="HBEHE baseline temporary filter decision"),
-            NTupleVariable("Flag_HBHEIsoNoiseFilter_fix", lambda ev: getattr(ev, "ev.hbheFilterIso", 0), help="HBEHE isolation temporary filter decision"),
+            #NTupleVariable("Flag_HBHENoiseFilter_fix", lambda ev: getattr(ev, "ev.hbheFilterNew", 0), help="HBEHE baseline temporary filter decision"),
+            #NTupleVariable("Flag_HBHEIsoNoiseFilter_fix", lambda ev: getattr(ev, "ev.hbheFilterIso", 0), help="HBEHE isolation temporary filter decision"),
             NTupleVariable("Flag_badChargedHadronFilter", lambda ev: ev.badChargedHadron, help="bad charged hadron filter decision"),
             NTupleVariable("Flag_badMuonFilter", lambda ev: ev.badMuon, help="bad muon filter decision"),
 
