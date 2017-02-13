@@ -74,11 +74,11 @@ elif isolation == "hybIso":
     lepAna.doMiniIsolation = False
     lepAna.ele_isoCorr = "rhoArea"
     lepAna.mu_isoCorr = "rhoArea"
-    absIsoCut   = 5
+    absIsoCut   = 20
     ptSwitch    = 25
     relIsoCut   = 1.*absIsoCut/ptSwitch
-    lepAna.loose_muon_isoCut     = lambda muon : ((muon.relIso03 < relIsoCut and muon.pt() >= ptSwitch) or (muon.pt() < ptSwitch and muon.absIso03 < absIsoCut))
-    lepAna.loose_electron_isoCut = lambda elec : ((elec.relIso03 < relIsoCut and elec.pt() >= ptSwitch) or (elec.pt() < ptSwitch and elec.absIso03 < absIsoCut))
+    lepAna.loose_muon_isoCut     = lambda mu: (mu.absIso03 < absIsoCut) or (mu.relIso03 < relIsoCut)
+    lepAna.loose_electron_isoCut = lambda el: (el.absIso03 < absIsoCut) or (el.relIso03 < relIsoCut)
 
 #-----------------------------------------------------------------------
 # Jet & MET Preselection
