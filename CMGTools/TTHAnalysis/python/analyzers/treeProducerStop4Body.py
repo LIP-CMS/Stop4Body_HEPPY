@@ -141,8 +141,8 @@ susyStop4Body_globalObjects.update({
 
 susyStop4Body_collections = susyCore_collections.copy()
 susyStop4Body_collections.update({
-            "genParticles"       : NTupleCollection("genPartAll", genParticleWithMotherId,    200,              help="all pruned genparticles"),
-            #"genParticles"       : NTupleCollection("genPartAll", genParticleWithMotherIndex, 200,              help="all pruned genparticles"),
+            #"genParticles"       : NTupleCollection("genPartAll", genParticleWithMotherId,    300,              help="all pruned genparticles"),
+            "genParticles"       : NTupleCollection("genPartAll", genParticleWithMotherIndex, 300,              help="all pruned genparticles"),
             "gentopquarks"       : NTupleCollection("GenTop",     genParticleType,              2,              help="Generated top quarks from hard scattering (needed separately for top pt reweighting)"),
             ## ---------------------------------------------
             "selectedTaus"       : NTupleCollection("TauGood",    tauTypeSusy,                  8,              help="Taus after the preselection"),
@@ -152,7 +152,7 @@ susyStop4Body_collections.update({
             ## ---------------------------------------------
             "cleanJetsAll"       : NTupleCollection("Jet",        jetTypeSusy,                 30,              help="Cental jets after full selection and cleaning, sorted by pt"),
             ## ---------------------------------------------
-            "ivf"                : NTupleCollection("SV",         svType,                      20,              help="SVs from IVF"),
+            #"ivf"                : NTupleCollection("SV",         svType,                      20,              help="SVs from IVF"),
             ## ---------------------------------------------
             "selectedIsoTrack"   : NTupleCollection("isoTrack",   isoTrackType,                50,              help="isoTrack, sorted by pt"),
             ## ---------------------------------------------

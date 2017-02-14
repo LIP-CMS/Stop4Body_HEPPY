@@ -174,6 +174,8 @@ if runSMS:
         jetAnaScaleUp.applyL2L3Residual   = False
         jetAnaScaleDown.applyL2L3Residual = False
 
+jetAna.calculateSeparateCorrections = True
+
 jetAna.lepSelCut = lambda lep: ( abs(lep.pdgId()) == 11 and lep.pt() > 5 ) or ( abs(lep.pdgId()) == 13 and lep.pt() > 3 )
 
 def jetLepRatio( jet, lepton):
@@ -382,80 +384,54 @@ jsonAna.useLumiBlocks = True
 #-------- SAMPLES AND TRIGGERS -----------
 
 #from CMGTools.RootTools.samples.triggers_13TeV_DATA2016 import *
+from CMGTools.RootTools.samples.triggers_13TeV_Spring16_degStop import *
+triggerFlagsAna.triggerBits = {}
+for trigger in  triggers:
+  trigger_name = "trigger_{trig}".format(trig=trigger.replace("_v*","") )
+  HLT_name = "{trig}".format(trig=trigger.replace("_v*","").replace("HLT_","") )
+  triggerFlagsAna.triggerBits[HLT_name] = eval( trigger_name )
+
 #triggerFlagsAna.triggerBits = {
-#    'DoubleMu' : triggers_mumu_iso,
-#    'DoubleMuSS' : triggers_mumu_ss,
-#    'DoubleMuNoIso' : triggers_mumu_noniso + triggers_mu27tkmu8,
-#    'DoubleEl' : triggers_ee + triggers_doubleele33 + triggers_doubleele33_MW,
-#    'MuEG'     : triggers_mue + triggers_mu30ele30,
-#    'DoubleMuHT' : triggers_mumu_ht,
-#    'DoubleElHT' : triggers_ee_ht,
-#    'MuEGHT' : triggers_mue_ht,
-#    'TripleEl' : triggers_3e,
-#    'TripleMu' : triggers_3mu,
-#    'TripleMuA' : triggers_3mu_alt,
-#    'DoubleMuEl' : triggers_2mu1e,
-#    'DoubleElMu' : triggers_2e1mu,
-#    'SingleMu' : triggers_1mu_iso,
-#    'SingleEl'     : triggers_1e,
-#    'SOSHighMET' : triggers_SOS_highMET,
-#    'SOSDoubleMuLowMET' : triggers_SOS_doublemulowMET,
-#    'SOSTripleMu' : triggers_SOS_tripleMu,
-#    'LepTau' : triggers_leptau,
-#    'MET' : triggers_metNoMu90_mhtNoMu90 + triggers_htmet,
-#    'HT' : triggers_pfht,
-#
-#    ### MET PD::
-#    'PFMET90_PFMHT90': triggers_met90_mht90 ,
-#    'PFMETNoMu90_PFMHTNoMu90': triggers_metNoMu90_mhtNoMu90,
-#    'PFMET120_PFMHT120': triggers_met120_mht120,
-#    'PFMETNoMu120_PFMHTNoMu120': triggers_metNoMu120_mhtNoMu120,
-#
-#    #'MonoJet80MET90' : triggers_Jet80MET90,
-#    #'MonoJet80MET120' : triggers_Jet80MET120,
-#    #'METMu5' : triggers_MET120Mu5,
+#  'HT2000': ['HLT_HT2000_v*'],
+#  'Ele25_eta2p1_WPTight_Gsf': ['HLT_Ele25_eta2p1_WPTight_Gsf_v*'],
+#  'PFMET110_PFMHT110_IDTight': ['HLT_PFMET110_PFMHT110_IDTight_v*'],
+#  'PFJet450': ['HLT_PFJet450_v*'],
+#  'PFMETNoMu100_PFMHTNoMu100_IDTight': ['HLT_PFMETNoMu100_PFMHTNoMu100_IDTight_v*'],
+#  'Ele25_WPTight_Gsf': ['HLT_Ele25_WPTight_Gsf_v*'],
+#  'IsoMu27': ['HLT_IsoMu27_v*'],
+#  'Mu3er_PFHT140_PFMET125': ['HLT_Mu3er_PFHT140_PFMET125_v*'],
+#  'MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight': ['HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight_v*'],
+#  'Ele32_eta2p1_WPTight_Gsf': ['HLT_Ele32_eta2p1_WPTight_Gsf_v*'],
+#  'MonoCentralPFJet80_PFMETNoMu110_PFMHTNoMu110_IDTight': ['HLT_MonoCentralPFJet80_PFMETNoMu110_PFMHTNoMu110_IDTight_v*'],
+#  'PFMETNoMu90_PFMHTNoMu90_IDTight': ['HLT_PFMETNoMu90_PFMHTNoMu90_IDTight_v*'],
+#  'AK8PFJet450': ['HLT_AK8PFJet450_v*'],
+#  'Ele22_eta2p1_WPLoose_Gsf': ['HLT_Ele22_eta2p1_WPLoose_Gsf_v*'],
+#  'MonoCentralPFJet80_PFMETNoMu100_PFMHTNoMu100_IDTight': ['HLT_MonoCentralPFJet80_PFMETNoMu100_PFMHTNoMu100_IDTight_v*'],
+#  'PFMET120_PFMHT120_IDTight': ['HLT_PFMET120_PFMHT120_IDTight_v*'],
+#  'Mu50': ['HLT_Mu50_v*'],
+#  'IsoMu22_eta2p1': ['HLT_IsoMu22_eta2p1_v*'],
+#  'MonoCentralPFJet80_PFMETNoMu90_PFMHTNoMu90_IDTight': ['HLT_MonoCentralPFJet80_PFMETNoMu90_PFMHTNoMu90_IDTight_v*'],
+#  'Ele24_eta2p1_WPLoose_Gsf': ['HLT_Ele24_eta2p1_WPLoose_Gsf_v*'],
+#  'HT2500': ['HLT_HT2500_v*'],
+#  'PFMET120_Mu5': ['HLT_PFMET120_Mu5_v*'],
+#  'PFHT800': ['HLT_PFHT800_v*'],
+#  'PFHT900': ['HLT_PFHT900_v*'],
+#  'PFMET90_PFMHT90_IDTight': ['HLT_PFMET90_PFMHT90_IDTight_v*'],
+#  'Ele27_WPTight_Gsf': ['HLT_Ele27_WPTight_Gsf_v*'],
+#  'PFMET170_NoiseCleaned': ['HLT_PFMET170_NoiseCleaned_v*'],
+#  'IsoTkMu22_eta2p1': ['HLT_IsoTkMu22_eta2p1_v*'],
+#  'Ele27_eta2p1_WPLoose_Gsf_HT200': ['HLT_Ele27_eta2p1_WPLoose_Gsf_HT200_v*'],
+#  'IsoTkMu24': ['HLT_IsoTkMu24_v*'],
+#  'IsoMu22': ['HLT_IsoMu22_v*'],
+#  'IsoMu24': ['HLT_IsoMu24_v*'],
+#  'IsoTkMu22': ['HLT_IsoTkMu22_v*'],
+#  'Ele25_eta2p1_WPLoose_Gsf': ['HLT_Ele25_eta2p1_WPLoose_Gsf_v*'],
+#  'IsoTkMu27': ['HLT_IsoTkMu27_v*'],
+#  'PFMET100_PFMHT100_IDTight': ['HLT_PFMET100_PFMHT100_IDTight_v*'],
+#  'Ele27_eta2p1_WPTight_Gsf': ['HLT_Ele27_eta2p1_WPTight_Gsf_v*'],
+#  'PFMETNoMu110_PFMHTNoMu110_IDTight': ['HLT_PFMETNoMu110_PFMHTNoMu110_IDTight_v*'],
+#  'PFMETNoMu120_PFMHTNoMu120_IDTight': ['HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_v*']
 #}
-triggerFlagsAna.triggerBits = {
-  'HT2000': ['HLT_HT2000_v*'],
-  'Ele25_eta2p1_WPTight_Gsf': ['HLT_Ele25_eta2p1_WPTight_Gsf_v*'],
-  'PFMET110_PFMHT110_IDTight': ['HLT_PFMET110_PFMHT110_IDTight_v*'],
-  'PFJet450': ['HLT_PFJet450_v*'],
-  'PFMETNoMu100_PFMHTNoMu100_IDTight': ['HLT_PFMETNoMu100_PFMHTNoMu100_IDTight_v*'],
-  'Ele25_WPTight_Gsf': ['HLT_Ele25_WPTight_Gsf_v*'],
-  'IsoMu27': ['HLT_IsoMu27_v*'],
-  'Mu3er_PFHT140_PFMET125': ['HLT_Mu3er_PFHT140_PFMET125_v*'],
-  'MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight': ['HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight_v*'],
-  'Ele32_eta2p1_WPTight_Gsf': ['HLT_Ele32_eta2p1_WPTight_Gsf_v*'],
-  'MonoCentralPFJet80_PFMETNoMu110_PFMHTNoMu110_IDTight': ['HLT_MonoCentralPFJet80_PFMETNoMu110_PFMHTNoMu110_IDTight_v*'],
-  'PFMETNoMu90_PFMHTNoMu90_IDTight': ['HLT_PFMETNoMu90_PFMHTNoMu90_IDTight_v*'],
-  'AK8PFJet450': ['HLT_AK8PFJet450_v*'],
-  'Ele22_eta2p1_WPLoose_Gsf': ['HLT_Ele22_eta2p1_WPLoose_Gsf_v*'],
-  'MonoCentralPFJet80_PFMETNoMu100_PFMHTNoMu100_IDTight': ['HLT_MonoCentralPFJet80_PFMETNoMu100_PFMHTNoMu100_IDTight_v*'],
-  'PFMET120_PFMHT120_IDTight': ['HLT_PFMET120_PFMHT120_IDTight_v*'],
-  'Mu50': ['HLT_Mu50_v*'],
-  'IsoMu22_eta2p1': ['HLT_IsoMu22_eta2p1_v*'],
-  'MonoCentralPFJet80_PFMETNoMu90_PFMHTNoMu90_IDTight': ['HLT_MonoCentralPFJet80_PFMETNoMu90_PFMHTNoMu90_IDTight_v*'],
-  'Ele24_eta2p1_WPLoose_Gsf': ['HLT_Ele24_eta2p1_WPLoose_Gsf_v*'],
-  'HT2500': ['HLT_HT2500_v*'],
-  'PFMET120_Mu5': ['HLT_PFMET120_Mu5_v*'],
-  'PFHT800': ['HLT_PFHT800_v*'],
-  'PFHT900': ['HLT_PFHT900_v*'],
-  'PFMET90_PFMHT90_IDTight': ['HLT_PFMET90_PFMHT90_IDTight_v*'],
-  'Ele27_WPTight_Gsf': ['HLT_Ele27_WPTight_Gsf_v*'],
-  'PFMET170_NoiseCleaned': ['HLT_PFMET170_NoiseCleaned_v*'],
-  'IsoTkMu22_eta2p1': ['HLT_IsoTkMu22_eta2p1_v*'],
-  'Ele27_eta2p1_WPLoose_Gsf_HT200': ['HLT_Ele27_eta2p1_WPLoose_Gsf_HT200_v*'],
-  'IsoTkMu24': ['HLT_IsoTkMu24_v*'],
-  'IsoMu22': ['HLT_IsoMu22_v*'],
-  'IsoMu24': ['HLT_IsoMu24_v*'],
-  'IsoTkMu22': ['HLT_IsoTkMu22_v*'],
-  'Ele25_eta2p1_WPLoose_Gsf': ['HLT_Ele25_eta2p1_WPLoose_Gsf_v*'],
-  'IsoTkMu27': ['HLT_IsoTkMu27_v*'],
-  'PFMET100_PFMHT100_IDTight': ['HLT_PFMET100_PFMHT100_IDTight_v*'],
-  'Ele27_eta2p1_WPTight_Gsf': ['HLT_Ele27_eta2p1_WPTight_Gsf_v*'],
-  'PFMETNoMu110_PFMHTNoMu110_IDTight': ['HLT_PFMETNoMu110_PFMHTNoMu110_IDTight_v*'],
-  'PFMETNoMu120_PFMHTNoMu120_IDTight': ['HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_v*']
-}
 triggerFlagsAna.unrollbits = False
 triggerFlagsAna.saveIsUnprescaled = False
 triggerFlagsAna.checkL1prescale = False
