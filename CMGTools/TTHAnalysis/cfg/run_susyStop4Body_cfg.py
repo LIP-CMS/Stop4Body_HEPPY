@@ -174,6 +174,17 @@ if runSMS:
         jetAnaScaleUp.applyL2L3Residual   = False
         jetAnaScaleDown.applyL2L3Residual = False
 
+def jetLepRatio( jet, lepton):
+    lep_jet_ratio = lepton.pt()/jet.pt()
+    if lep_jet_ratio < 0.5 :
+        return (jet, lepton)   ## Don't Clean Jet
+    else:
+        return lepton             ## Clean Jet
+jetAna.jetLepArbitration = jetLepRatio
+if not removeJecUncertainty:
+    jetAnaScaleUp.jetLepArbitration   = jetLepRatio
+    jetAnaScaleDown.jetLepArbitration = jetLepRatio
+
 # SET UP GLOBAL TAGS
 jetAna.mcGT        = myMCGlobalTag
 jetAna.dataGT      = myDataGlobalTag
