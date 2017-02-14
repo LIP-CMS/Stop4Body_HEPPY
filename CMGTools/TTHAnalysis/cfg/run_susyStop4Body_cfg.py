@@ -170,9 +170,12 @@ if removeJetReCalibration:
 if runSMS:
     myMCGlobalTag = "Spring16_FastSimV1_MC"
     jetAna.applyL2L3Residual = False
+    jetAna.relaxJetId = True # relax jetId for FastSIM
     if not removeJecUncertainty:
         jetAnaScaleUp.applyL2L3Residual   = False
         jetAnaScaleDown.applyL2L3Residual = False
+        jetAnaScaleUp.relaxJetId   = True
+        jetAnaScaleDown.relaxJetId = True
 
 jetAna.calculateSeparateCorrections = True
 
@@ -227,19 +230,25 @@ ttHEventAna = cfg.Analyzer(
     minJets25 = 0,
     )
 
-# sync with HEPHY
-#from PhysicsTools.Heppy.analyzers.objects.TrackAnalyzer import TrackAnalyzer
-#trackAna = cfg.Analyzer(
-#    TrackAnalyzer, name='trackAnalyzer',
-#    setOff=False,
-#    trackOpt="reco",
-#    do_mc_match=True,
-#    )
-#genTrackAna = cfg.Analyzer(
-#    TrackAnalyzer, name='GenTrackAnalyzer',
-#    setOff=False,
-#    trackOpt="gen",
-#    )
+addSoftTracks = False
+if addSoftTracks:
+    from PhysicsTools.Heppy.analyzers.objects.TrackAnalyzer import TrackAnalyzer
+    trackAna = cfg.Analyzer(
+        TrackAnalyzer, name='trackAnalyzer',
+        setOff=False,
+        trackOpt="reco",
+        do_mc_match=True,
+        )
+    genTrackAna = cfg.Analyzer(
+        TrackAnalyzer, name='GenTrackAnalyzer',
+        setOff=False,
+        trackOpt="gen",
+        )
+    # Insert TrackAna in the sequence:
+    susyCoreSequence.insert(susyCoreSequence.index(metAna)+1,
+                            genTrackAna)
+    susyCoreSequence.insert(susyCoreSequence.index(genTrackAna)+1,
+                            trackAna)
 
 ## Insert the FatJet, SV, HeavyFlavour analyzers in the sequence
 #susyCoreSequence.insert(susyCoreSequence.index(ttHCoreEventAna),
@@ -248,11 +257,7 @@ ttHEventAna = cfg.Analyzer(
 #                        ttHSVAna)
 #susyCoreSequence.insert(susyCoreSequence.index(ttHCoreEventAna),
 #                        ttHHeavyFlavourHadronAna)
-## Insert TrackAna in the sequence:
-#susyCoreSequence.insert(susyCoreSequence.index(metAna)+1,
-#                        genTrackAna)
-#susyCoreSequence.insert(susyCoreSequence.index(genTrackAna)+1,
-#                        trackAna)
+
 
 ## Insert declustering analyzer
 #from CMGTools.TTHAnalysis.analyzers.ttHDeclusterJetsAnalyzer import ttHDeclusterJetsAnalyzer
@@ -343,8 +348,7 @@ if lepAna.doIsolationScan:
 #            "discardedJets_jecDown" : NTupleCollection("DiscJet_jecDown", jetTypeSusySuperLight if analysis=='susy' else jetTypeSusyExtraLight, 15, help="Jets discarted in the jet-lepton cleaning (JEC -1sigma)"),
 #            })
 
-susyCounter.doLHE = False
-susyCoreSequence.insert(susyCoreSequence.index(skimAnalyzer),susyCounter)
+#susyCounter.doLHE = False
 
 ## Tree Producer
 treeProducer = cfg.Analyzer(
@@ -361,9 +365,14 @@ treeProducer = cfg.Analyzer(
 if not runSMS:
     susyScanAna.doLHE = False # until a proper fix is put in the analyzer
     susyScanAna.useLumiInfo = False
+    susyCoreSequence.insert(susyCoreSequence.index(skimAnalyzer), susyCounter)
 else:
-    #susyScanAna.useLumiInfo = True
-    susyScanAna.doLHE = True
+    lheWeightAna.useLumiInfo = True
+    susyScanAna.useLumiInfo  = True
+    susyScanAna.doLHE        = True
+    susyCounter.bypass_trackMass_check = False
+    susyCounter.SMS_varying_masses     = [ 'genSusyMNeutralino','genSusyMChargino' , 'genSusyMStop']
+    susyCoreSequence.insert(susyCoreSequence.index(susyScanAna)+1, susyCounter)
 
 jsonAna.useLumiBlocks = True
 
@@ -436,10 +445,10 @@ triggerFlagsAna.unrollbits = False
 triggerFlagsAna.saveIsUnprescaled = False
 triggerFlagsAna.checkL1prescale = False
 
-if runSMS:
-    susyCoreSequence.remove(triggerFlagsAna)
-    susyCoreSequence.remove(triggerAna)
-    susyCoreSequence.remove(eventFlagsAna)
+#if runSMS:
+#    susyCoreSequence.remove(triggerFlagsAna)
+#    susyCoreSequence.remove(triggerAna)
+#    susyCoreSequence.remove(eventFlagsAna)
 
 
 from CMGTools.RootTools.samples.samples_13TeV_RunIISummer16MiniAODv2 import *
@@ -450,10 +459,13 @@ from CMGTools.RootTools.samples.samples_13TeV_DATA2016 import *
 selectedComponents = [WJetsToLNu_LO]
 
 if runSMS: # For running on signal
-    selectedComponents=[WJetsToLNu_LO]
+    #from CMGTools.RootTools.samples.samples_13TeV_80X_susySignalsPriv import *
+    #selectedComponents = [ SMS_T2tt_genHT_160_genMET_80_mStop_275_mLSP_205 ]
+    selectedComponents = [ SMS_T2tt_dM_10to80_genHT_160_genMET_80_mWMin_0p1 ]
 
 if runData and not isTest: # For running on data
-    selectedComponents=[]
+    selectedComponents = [ MET_Run2016G_23Sep2016 ]
+    #if test != 0 and jsonAna in susyCoreSequence: susyCoreSequence.remove(jsonAna)
 
 #-------- SEQUENCE
 
