@@ -174,6 +174,8 @@ if runSMS:
         jetAnaScaleUp.applyL2L3Residual   = False
         jetAnaScaleDown.applyL2L3Residual = False
 
+jetAna.lepSelCut = lambda lep: ( abs(lep.pdgId()) == 11 and lep.pt() > 5 ) or ( abs(lep.pdgId()) == 13 and lep.pt() > 3 )
+
 def jetLepRatio( jet, lepton):
     lep_jet_ratio = lepton.pt()/jet.pt()
     if lep_jet_ratio < 0.5 :
