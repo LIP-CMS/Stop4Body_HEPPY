@@ -467,17 +467,23 @@ class ttHCoreEventAnalyzer( Analyzer ):
     def makeMT(self, event):
         if len(event.selectedLeptons)>0:
             for lepton in event.selectedLeptons:
-                event.mtw = mtw(lepton, event.met)
-                event.mtw1= 1-(80*80)/(2*event.met.pt()*lepton.pt())
-                event.mtw2=cos(deltaPhi(event.met.phi(),lepton.phi()))
+                event.mtw  = mtw(lepton, event.met)
+                event.mtw1 = 1-(80*80)/(2*event.met.pt()*lepton.pt())
+                event.mtw2 = cos(deltaPhi(event.met.phi(),lepton.phi()))
+                lepton.cosLMet = cos(lepton.phi() - event.met.phi())
+                lepton.mt      = mtw(lepton, event.met)
+                lepton.Q80     = 1 - 80**2/(2*lepton.pt()*event.met.pt())
 
         if len(event.selectedTaus)>0:
             for myTau in event.selectedTaus:
-                event.mtwTau = mtw(myTau, event.met)
-                foundTau = True
+                myTau.cosLMet = cos(myTau.phi() - event.met.phi())
+                myTau.mt      = mtw(myTau, event.met)
+                myTau.Q80     = 1 - 80**2/(2*myTau.pt()*event.met.pt())
 
         if len(event.selectedIsoTrack)>0:
-            for myTrack in event.selectedIsoTrack:
-                event.mtwIsoTrack = mtw(myTrack, event.met)
+            for track in event.selectedIsoTrack:
+                track.cosLMet = cos(track.phi() - event.met.phi())
+                track.mt      = mtw(track, event.met)
+                track.Q80     = 1 - 80**2/(2*track.pt()*event.met.pt())
 
         return
