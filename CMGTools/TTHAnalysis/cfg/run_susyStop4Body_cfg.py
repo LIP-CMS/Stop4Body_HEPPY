@@ -467,6 +467,11 @@ if runData and not isTest: # For running on data
     selectedComponents = [ MET_Run2016G_23Sep2016 ]
     #if test != 0 and jsonAna in susyCoreSequence: susyCoreSequence.remove(jsonAna)
 
+#ISR jet counting
+from CMGTools.TTHAnalysis.analyzers.nIsrAnalyzer import NIsrAnalyzer
+nISRAna = cfg.Analyzer(NIsrAnalyzer, name="NIsrAnalyzer",)
+susyCoreSequence.insert(susyCoreSequence.index(ttHCoreEventAna), nISRAna)
+
 #-------- SEQUENCE
 
 sequence = cfg.Sequence(susyCoreSequence+[
