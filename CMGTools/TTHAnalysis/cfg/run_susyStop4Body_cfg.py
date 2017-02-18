@@ -10,6 +10,8 @@ import re
 
 from CMGTools.TTHAnalysis.analyzers.susyCore_modules_cff import *
 from PhysicsTools.HeppyCore.framework.heppy_loop import getHeppyOption
+# Tree Producer
+from CMGTools.TTHAnalysis.analyzers.treeProducerStop4Body import *
 
 #-------- SET OPTIONS AND REDEFINE CONFIGURATIONS -----------
 
@@ -19,6 +21,7 @@ removeJetReCalibration = getHeppyOption("removeJetReCalibration",False)
 removeJecUncertainty = getHeppyOption("removeJecUncertainty",False)
 skipT1METCorr = getHeppyOption("skipT1METCorr",False)
 isTest = getHeppyOption("test",None) != None and not re.match("^\d+$",getHeppyOption("test"))
+allGenParts = getHeppyOption("allGenParts", False)
 
 # --- LEPTON SKIMMING ---
 ttHLepSkim.minLeptons = 0
@@ -223,6 +226,18 @@ if not removeJecUncertainty:
 isoTrackAna.setOff = False
 genAna.allGenTaus = True
 
+if allGenParts:
+    susySingleLepton_collections.update(
+        {
+            #"jets"               : NTupleCollection("JetDirty",    genJetType,                   25, help="Cental jets after full selection but before cleaning, sorted by pt"),
+            "genJets"            : NTupleCollection("GenJetDirty", genJetType,                   30, help="Gen Jets before cleaning, sorted by pt"),
+            "genParticles"       : NTupleCollection("genPartAll",  genParticleWithMotherIndex,  300, help="all pruned genparticles"),
+            "packedGenParticles" : NTupleCollection("PkdGenPart",  genParticleWithMotherIndex, 5000, help="all packed genparticles"),
+            "packedPFCandidates" : NTupleCollection("PkdPFCands",  genParticleWithMotherIndex, 5000, help="all packed PF Candidates"),
+            "gentopquarks"       : NTupleCollection("GenTop",      genParticleType,               2, help="Generated top quarks from hard scattering (needed separately for top pt reweighting)"),
+        }
+    )
+
 ## Event Analyzer for susy single-lepton (at the moment, it's the TTH one)
 from CMGTools.TTHAnalysis.analyzers.ttHLepEventAnalyzer import ttHLepEventAnalyzer
 ttHEventAna = cfg.Analyzer(
@@ -302,9 +317,6 @@ susyCoreSequence.insert(susyCoreSequence.index(ttHCoreEventAna),
 #    pTSubJet = 30,
 #    etaSubJet = 5.0,
 #            )
-
-# Tree Producer
-from CMGTools.TTHAnalysis.analyzers.treeProducerStop4Body import *
 
 #ttHLepSkim.allowLepTauComb = True
 #susyCoreSequence.insert(susyCoreSequence.index(ttHCoreEventAna),
