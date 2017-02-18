@@ -418,8 +418,6 @@ class ttHCoreEventAnalyzer( Analyzer ):
         event.mtw = -999
         event.mtw1= -999
         event.mtw2= -999
-        event.mtwTau = -999
-        event.mtwIsoTrack = -999
         self.makeMT(event)
 
 
@@ -475,10 +473,10 @@ class ttHCoreEventAnalyzer( Analyzer ):
                 lepton.Q80     = 1 - 80**2/(2*lepton.pt()*event.met.pt())
 
         if len(event.selectedTaus)>0:
-            for myTau in event.selectedTaus:
-                myTau.cosLMet = cos(myTau.phi() - event.met.phi())
-                myTau.mt      = mtw(myTau, event.met)
-                myTau.Q80     = 1 - 80**2/(2*myTau.pt()*event.met.pt())
+            for tau in event.selectedTaus:
+                tau.cosLMet = cos(tau.phi() - event.met.phi())
+                tau.mt      = mtw(tau, event.met)
+                tau.Q80     = 1 - 80**2/(2*tau.pt()*event.met.pt())
 
         if len(event.selectedIsoTrack)>0:
             for track in event.selectedIsoTrack:
