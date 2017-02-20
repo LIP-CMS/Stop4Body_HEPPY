@@ -477,6 +477,8 @@ if runSMS: # For running on signal
 
 if runData and not isTest: # For running on data
     selectedComponents = [ MET_Run2016G_23Sep2016 ]
+    for comp in selectedComponents:
+        comp.json = "Cert_271036-284044_13TeV_PromptReco_Collisions16_JSON.txt"
     #if test != 0 and jsonAna in susyCoreSequence: susyCoreSequence.remove(jsonAna)
 
 #ISR jet counting
