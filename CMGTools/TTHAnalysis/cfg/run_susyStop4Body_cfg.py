@@ -464,9 +464,10 @@ triggerFlagsAna.checkL1prescale = False
 
 
 from CMGTools.RootTools.samples.samples_13TeV_RunIISummer16MiniAODv2 import *
-from CMGTools.RootTools.samples.samples_13TeV_signals import *
-from CMGTools.RootTools.samples.samples_13TeV_80X_susySignalsPriv import *
+#from CMGTools.RootTools.samples.samples_13TeV_signals import *
+#from CMGTools.RootTools.samples.samples_13TeV_80X_susySignalsPriv import *
 from CMGTools.RootTools.samples.samples_13TeV_DATA2016 import *
+from CMGTools.RootTools.samples.samples_Stop4Body import *
 
 selectedComponents = [WJetsToLNu_LO]
 
