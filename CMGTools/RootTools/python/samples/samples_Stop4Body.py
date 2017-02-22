@@ -38,6 +38,8 @@ SMS_T1tttt_mGluino1500_mLSP100,
 
 SMS_T2tt_dM_10to80_genHT_160_genMET_80,
 SMS_T2tt_dM_10to80_2Lfilter,
+SMS_T2tt_dM_10to80_genHT_160_genMET_80_mWMin_0p1,
+SMS_T2bW_X05_dM_10to80_genHT_160_genMET_80_mWMin_0p1,
 
 ]
 
