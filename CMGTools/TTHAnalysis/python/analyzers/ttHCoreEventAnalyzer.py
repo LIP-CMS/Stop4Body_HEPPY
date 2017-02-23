@@ -463,25 +463,22 @@ class ttHCoreEventAnalyzer( Analyzer ):
         return True
 
     def makeMT(self, event):
-        if len(event.selectedLeptons)>0:
-            for lepton in event.selectedLeptons:
-                event.mtw  = mtw(lepton, event.met)
-                event.mtw1 = 1-(80*80)/(2*event.met.pt()*lepton.pt())
-                event.mtw2 = cos(deltaPhi(event.met.phi(),lepton.phi()))
-                lepton.cosLMet = cos(lepton.phi() - event.met.phi())
-                lepton.mt      = mtw(lepton, event.met)
-                lepton.Q80     = 1 - 80**2/(2*lepton.pt()*event.met.pt())
+        for lepton in event.inclusiveLeptons:
+            event.mtw  = mtw(lepton, event.met)
+            event.mtw1 = 1-(80*80)/(2*event.met.pt()*lepton.pt())
+            event.mtw2 = cos(deltaPhi(event.met.phi(),lepton.phi()))
+            lepton.cosLMet = cos(lepton.phi() - event.met.phi())
+            lepton.mt      = mtw(lepton, event.met)
+            lepton.Q80     = 1 - 80**2/(2*lepton.pt()*event.met.pt())
 
-        if len(event.selectedTaus)>0:
-            for tau in event.selectedTaus:
-                tau.cosLMet = cos(tau.phi() - event.met.phi())
-                tau.mt      = mtw(tau, event.met)
-                tau.Q80     = 1 - 80**2/(2*tau.pt()*event.met.pt())
+        for tau in event.selectedTaus:
+            tau.cosLMet = cos(tau.phi() - event.met.phi())
+            tau.mt      = mtw(tau, event.met)
+            tau.Q80     = 1 - 80**2/(2*tau.pt()*event.met.pt())
 
-        if len(event.selectedIsoTrack)>0:
-            for track in event.selectedIsoTrack:
-                track.cosLMet = cos(track.phi() - event.met.phi())
-                track.mt      = mtw(track, event.met)
-                track.Q80     = 1 - 80**2/(2*track.pt()*event.met.pt())
+        for track in event.selectedIsoTrack:
+            track.cosLMet = cos(track.phi() - event.met.phi())
+            track.mt      = mtw(track, event.met)
+            track.Q80     = 1 - 80**2/(2*track.pt()*event.met.pt())
 
         return
