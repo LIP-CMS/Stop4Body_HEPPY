@@ -17,6 +17,7 @@ from CMGTools.TTHAnalysis.analyzers.treeProducerStop4Body import *
 
 runData = getHeppyOption("runData",False)
 runSMS = getHeppyOption("runSMS",False)
+runFullSimSignal = getHeppyOption("runFullSimSignal",False)
 removeJetReCalibration = getHeppyOption("removeJetReCalibration",False)
 removeJecUncertainty = getHeppyOption("removeJecUncertainty",False)
 skipT1METCorr = getHeppyOption("skipT1METCorr",False)
@@ -474,7 +475,11 @@ selectedComponents = [WJetsToLNu_LO]
 if runSMS: # For running on signal
     #from CMGTools.RootTools.samples.samples_13TeV_80X_susySignalsPriv import *
     #selectedComponents = [ SMS_T2tt_genHT_160_genMET_80_mStop_275_mLSP_205 ]
-    selectedComponents = [ SMS_T2tt_dM_10to80_genHT_160_genMET_80_mWMin_0p1 ]
+    #selectedComponents = [ SMS_T2tt_dM_10to80_genHT_160_genMET_80_mWMin_0p1 ]
+    selectedComponents = signalSamples
+
+if runFullSimSignal:
+    selectedComponents = signalFullSim
 
 if runData and not isTest: # For running on data
     selectedComponents = [ MET_Run2016G_23Sep2016 ]
