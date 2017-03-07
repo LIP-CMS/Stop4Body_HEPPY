@@ -331,6 +331,7 @@ WJetsToLNuHT = [
 WJetsToLNu_HT70to100,
 WJetsToLNu_HT100to200,
 WJetsToLNu_HT100to200_ext,
+WJetsToLNu_HT100to200_ext2,
 WJetsToLNu_HT200to400,
 WJetsToLNu_HT200to400_ext2,
 WJetsToLNu_HT200to400_ext,
