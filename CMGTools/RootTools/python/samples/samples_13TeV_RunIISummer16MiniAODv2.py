@@ -42,7 +42,7 @@ TTJets_LO_HT2500toInf_ext  = kreator.makeMCComponent("TTJets_LO_HT2500toInf_ext"
 
 
 TTs = [
-# NOTAVAILYET # TTJets,
+TTJets,
 # NOTAVAILYET # TTJets_reHLT,
 #TTJets_ext,
 #TTJets_LO,
