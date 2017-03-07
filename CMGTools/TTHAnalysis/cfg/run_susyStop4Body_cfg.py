@@ -24,6 +24,9 @@ skipT1METCorr = getHeppyOption("skipT1METCorr",False)
 isTest = getHeppyOption("test",None) != None and not re.match("^\d+$",getHeppyOption("test"))
 allGenParts = getHeppyOption("allGenParts", False)
 
+#Assume by default to run on TTbar, only run on other background samples if specifically asked for
+runWJets = getHeppyOption("runWJets", False)
+
 # --- LEPTON SKIMMING ---
 ttHLepSkim.minLeptons = 0
 ttHLepSkim.maxLeptons = 999
@@ -470,7 +473,52 @@ from CMGTools.RootTools.samples.samples_13TeV_RunIISummer16MiniAODv2 import *
 from CMGTools.RootTools.samples.samples_13TeV_DATA2016 import *
 from CMGTools.RootTools.samples.samples_Stop4Body import *
 
-selectedComponents = [WJetsToLNu_LO]
+selectedComponents = [
+    TTJets,
+    TT_pow,
+    TT_pow_backup,
+    TTJets_SingleLeptonFromTbar,
+    TTJets_SingleLeptonFromTbar_ext,
+    TTJets_SingleLeptonFromT,
+    TTJets_SingleLeptonFromT_ext,
+    TTJets_DiLepton,
+    TTJets_DiLepton_ext,
+    TTJets_LO_HT600to800_ext,
+    TTJets_LO_HT800to1200_ext,
+    TTJets_LO_HT1200to2500_ext,
+    TTJets_LO_HT2500toInf_ext,
+]
+
+if runWJets:
+    selectedComponents = [
+        WJetsToLNu,
+        WJetsToLNu_LO,
+        WJetsToLNu_HT70to100,
+        WJetsToLNu_HT100to200,
+        WJetsToLNu_HT100to200_ext,
+        WJetsToLNu_HT100to200_ext2,
+        WJetsToLNu_HT200to400,
+        WJetsToLNu_HT200to400_ext,
+        WJetsToLNu_HT200to400_ext2,
+        WJetsToLNu_HT400to600,
+        WJetsToLNu_HT400to600_ext,
+        WJetsToLNu_HT600to800,
+        WJetsToLNu_HT600to800_ext,
+        WJetsToLNu_HT800to1200,
+        WJetsToLNu_HT800to1200_ext,
+        WJetsToLNu_HT1200to2500,
+        WJetsToLNu_HT1200to2500_ext,
+        WJetsToLNu_HT2500toInf,
+        WJetsToLNu_HT2500toInf_ext,
+        WJetsToLNu_Pt_100to250,
+        WJetsToLNu_Pt_100to250_ext,
+        WJetsToLNu_Pt_250to400,
+        WJetsToLNu_Pt_250to400_ext,
+        WJetsToLNu_Pt_400to600,
+        WJetsToLNu_Pt_400to600_ext,
+        WJetsToLNu_Pt_600toInf,
+        WJetsToLNu_Pt_600toInf_ext,
+    ]
 
 if runSMS: # For running on signal
     #from CMGTools.RootTools.samples.samples_13TeV_80X_susySignalsPriv import *
