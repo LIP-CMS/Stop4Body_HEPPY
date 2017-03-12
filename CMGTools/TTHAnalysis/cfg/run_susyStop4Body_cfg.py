@@ -26,6 +26,7 @@ allGenParts = getHeppyOption("allGenParts", False)
 
 #Assume by default to run on TTbar, only run on other background samples if specifically asked for
 runWJets = getHeppyOption("runWJets", False)
+runZInv = getHeppyOption("runZInv", False)
 
 # --- LEPTON SKIMMING ---
 ttHLepSkim.minLeptons = 0
@@ -520,11 +521,27 @@ if runWJets:
         WJetsToLNu_Pt_600toInf_ext,
     ]
 
+if runZInv:
+    selectedComponents = [
+        ZJetsToNuNu_HT100to200,
+        ZJetsToNuNu_HT100to200_ext,
+        ZJetsToNuNu_HT200to400,
+        ZJetsToNuNu_HT200to400_ext,
+        ZJetsToNuNu_HT400to600,
+        ZJetsToNuNu_HT400to600_ext,
+        ZJetsToNuNu_HT600to800,
+        ZJetsToNuNu_HT800to1200,
+        ZJetsToNuNu_HT1200to2500,
+        ZJetsToNuNu_HT1200to2500_ext,
+        ZJetsToNuNu_HT2500toInf,
+    ]
+
 if runSMS: # For running on signal
     #from CMGTools.RootTools.samples.samples_13TeV_80X_susySignalsPriv import *
     #selectedComponents = [ SMS_T2tt_genHT_160_genMET_80_mStop_275_mLSP_205 ]
     #selectedComponents = [ SMS_T2tt_dM_10to80_genHT_160_genMET_80_mWMin_0p1 ]
     selectedComponents = signalSamples
+    selectedComponents = [ SMS_T2tt_dM_10to80_genHT_160_genMET_80_mWMin_0p1 ]
 
 if runFullSimSignal:
     selectedComponents = signalFullSim
