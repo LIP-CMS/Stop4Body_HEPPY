@@ -27,6 +27,7 @@ allGenParts = getHeppyOption("allGenParts", False)
 #Assume by default to run on TTbar, only run on other background samples if specifically asked for
 runWJets = getHeppyOption("runWJets", False)
 runZInv = getHeppyOption("runZInv", False)
+runOtherMC = getHeppyOption("runOtherMC", False)
 
 # --- LEPTON SKIMMING ---
 ttHLepSkim.minLeptons = 0
@@ -534,6 +535,62 @@ if runZInv:
         ZJetsToNuNu_HT1200to2500,
         ZJetsToNuNu_HT1200to2500_ext,
         ZJetsToNuNu_HT2500toInf,
+    ]
+
+if runOtherMC:
+    selectedComponents = [
+        WW,
+        WZ,
+        ZZ,
+        TBar_tWch_ext,
+        T_tch_powheg,
+        T_tWch_ext,
+        TBar_tch_powheg,
+        QCD_HT50to100,
+        QCD_HT100to200,
+        QCD_HT200to300,
+        QCD_HT200to300_ext,
+        QCD_HT300to500,
+        QCD_HT300to500_ext,
+        QCD_HT500to700,
+        QCD_HT500to700_ext,
+        QCD_HT700to1000,
+        QCD_HT700to1000_ext,
+        QCD_HT1000to1500,
+        QCD_HT1000to1500_ext,
+        QCD_HT1500to2000,
+        QCD_HT1500to2000_ext,
+        QCD_HT2000toInf,
+        QCD_HT2000toInf_ext,
+        DYJetsToLL_M5to50_HT100to200,
+        DYJetsToLL_M5to50_HT100to200_ext,
+        DYJetsToLL_M5to50_HT200to400,
+        DYJetsToLL_M5to50_HT200to400_ext,
+        DYJetsToLL_M5to50_HT400to600,
+        DYJetsToLL_M5to50_HT400to600_ext,
+        DYJetsToLL_M5to50_HT600toInf,
+        DYJetsToLL_M5to50_HT600toInf_ext,
+        DYJetsToLL_M50_HT70to100,
+        DYJetsToLL_M50_HT100to200,
+        DYJetsToLL_M50_HT100to200_ext,
+        DYJetsToLL_M50_HT200to400,
+        DYJetsToLL_M50_HT200to400_ext,
+        DYJetsToLL_M50_HT400to600,
+        DYJetsToLL_M50_HT400to600_ext,
+        DYJetsToLL_M50_HT600to800,
+        DYJetsToLL_M50_HT800to1200,
+        DYJetsToLL_M50_HT1200to2500,
+        DYJetsToLL_M50_HT2500toInf,
+        TTW_LO,
+        TTWToQQ,
+        TTWToLNu_ext,
+        TTWToLNu_ext2,
+        TTGJets,
+        TTGJets_ext,
+        TTZ_LO,
+        TTZToLLNuNu_ext,
+        TTZToLLNuNu_m1to10,
+        TTZToQQ,
     ]
 
 if runSMS: # For running on signal
