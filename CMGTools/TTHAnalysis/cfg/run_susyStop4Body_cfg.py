@@ -540,8 +540,11 @@ if runZInv:
 if runOtherMC:
     selectedComponents = [
         WW,
+        WW_ext,
         WZ,
+        WZ_ext,
         ZZ,
+        ZZ_ext,
         TBar_tWch_ext,
         T_tch_powheg,
         T_tWch_ext,
