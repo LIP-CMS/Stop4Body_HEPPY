@@ -607,9 +607,42 @@ if runFullSimSignal:
     selectedComponents = signalFullSim
 
 if runData and not isTest: # For running on data
-    selectedComponents = [ MET_Run2016G_23Sep2016 ]
+    selectedComponents = [
+        JetHT_Run2016B_03Feb2017_v2,
+        JetHT_Run2016C_03Feb2017,
+        JetHT_Run2016D_03Feb2017,
+        JetHT_Run2016E_03Feb2017,
+        JetHT_Run2016F_03Feb2017,
+        JetHT_Run2016G_03Feb2017,
+        JetHT_Run2016H_03Feb2017_v2,
+        JetHT_Run2016H_03Feb2017_v3,
+        MET_Run2016B_03Feb2017_v2,
+        MET_Run2016C_03Feb2017,
+        MET_Run2016D_03Feb2017,
+        MET_Run2016E_03Feb2017,
+        MET_Run2016F_03Feb2017,
+        MET_Run2016G_03Feb2017,
+        MET_Run2016H_03Feb2017_v2,
+        MET_Run2016H_03Feb2017_v3,
+        SingleElectron_Run2016B_03Feb2017_v2,
+        SingleElectron_Run2016C_03Feb2017,
+        SingleElectron_Run2016D_03Feb2017,
+        SingleElectron_Run2016E_03Feb2017,
+        SingleElectron_Run2016F_03Feb2017,
+        SingleElectron_Run2016G_03Feb2017,
+        SingleElectron_Run2016H_03Feb2017_v2,
+        SingleElectron_Run2016H_03Feb2017_v3,
+        SingleMuon_Run2016B_03Feb2017_v2,
+        SingleMuon_Run2016C_03Feb2017,
+        SingleMuon_Run2016D_03Feb2017,
+        SingleMuon_Run2016E_03Feb2017,
+        SingleMuon_Run2016F_03Feb2017,
+        SingleMuon_Run2016G_03Feb2017,
+        SingleMuon_Run2016H_03Feb2017_v2,
+        SingleMuon_Run2016H_03Feb2017_v3,
+    ]
     for comp in selectedComponents:
-        comp.json = "Cert_271036-284044_13TeV_PromptReco_Collisions16_JSON.txt"
+        comp.json = "$CMSSW_BASE/src/CMGTools/TTHAnalysis/data/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt"
     #if test != 0 and jsonAna in susyCoreSequence: susyCoreSequence.remove(jsonAna)
 
 #ISR jet counting
