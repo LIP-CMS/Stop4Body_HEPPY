@@ -606,7 +606,7 @@ if runSMS: # For running on signal
 if runFullSimSignal:
     selectedComponents = signalFullSim
 
-if runData and not isTest: # For running on data
+if runData: # For running on data
     selectedComponents = [
         JetHT_Run2016B_03Feb2017_v2,
         JetHT_Run2016C_03Feb2017,
